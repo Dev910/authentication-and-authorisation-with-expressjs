@@ -1,4 +1,4 @@
-Security is critical in web development, especially when it comes to implementing features like the "delete user" functionality. Two key concepts—**authentication** and **authorization**—play a vital role in maintaining a secure and well-structured system. Understanding the distinction between these concepts is essential for building reliable, robust and secure applications.
+Security is critical in web development, especially when it comes to implementing features like the "delete user" functionality. Two key concepts:- **Authentication** and **authorization**, play a vital role in maintaining a secure and well-structured system. Understanding the distinction between these concepts is essential for building reliable, robust and secure applications.
 
 **Authentication** is the process of verifying the identity of a user. It’s like checking someone’s ID at the door. In web applications, this typically includes verifying user names and passwords, tokens, or other credentials.
 
