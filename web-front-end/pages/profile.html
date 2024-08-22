@@ -23,16 +23,23 @@
         <button type="submit">Update Profile</button>
     </form>
 
+    <form id="delete-user-form">
+        <label for="other-username">Username:</label>
+        <input type="text" id="other-username" name="other-username" required>
+        <br>
+        <button type="submit">Delete</button>
+    </form>
+
     <script>
         async function loadUserProfile() {
-            const response = await fetch('http://127.0.0.1:4001/auth/user',{
-                credentials:"include"
+            const response = await fetch('http://127.0.0.1:4001/auth/user', {
+                credentials: "include"
             });
             const user = (await response.json())?.payload;
             if (!user) {
                 alert('Failed to load user profile');
                 window.location.href = './index.html';
-                return
+                return;
             }
             document.getElementById('username').value = user.username;
             document.getElementById('contact_number').value = user.contact_number;
@@ -49,19 +56,41 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, email, contact_number }),
                 credentials: "include"
-
             });
             const result = await response.json();
-            // handle response
-            if (result.ok) {
+            if (response.ok) {
                 alert('Profile updated successfully');
-                return;
-            }else{
+            } else {
                 alert(result.message);
             }
         });
 
         loadUserProfile();
+
+        document.getElementById("delete-user-form").addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const username = document.getElementById("other-username").value;
+            
+            
+            const response = await fetch(`http://127.0.0.1:4001/auth/delete/user`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username }),
+                credentials: "include"
+            });
+            const result = await response.json();
+            if (response.ok) {
+                if(username==document.getElementById('username').value){
+                    alert("You have deleted yourself!")
+                }else{
+                    alert(`You deleted ${username} `)
+                }
+            } else {
+                alert(result.message);
+            }
+        });
     </script>
 </body>
 
